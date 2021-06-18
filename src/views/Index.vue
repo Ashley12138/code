@@ -5,13 +5,14 @@
       <div id="top-menu">
         <div class="contair clearfix">
           <a class="logo" href="/">
-            <img v-if="blue" src="@/assets/mart-logo.png" alt="" />
-            <img v-else src="@/assets/mart-logo-white.png" alt="" />
+            <!-- <img v-if="blue" src="@/assets/mart-logo.png" alt="" />
+            <img v-else src="@/assets/mart-logo-white.png" alt="" /> -->
+            <div style="display:inline-block;font-size:35px;font-weight: bold;float: left;line-height:64px;padding-left:15px;">汉迅</div>
           </a>
           <div class="leftmenu">
             <ul>
               <li><a href="/Find">找项目</a></li>
-              <li><a href="">原型广场</a></li>
+              <li><a href="/Proto">原型广场</a></li>
               <li>
                 <el-dropdown>
                   <span class="el-dropdown-link"> 帮助中心 </span>
@@ -29,7 +30,7 @@
           <div class="rightmenu">
             <div class="login-zone">
               <div class="btns">
-                <a href="" class="user button">成为开发者</a>
+                <a href="/becomePioneer" class="user button">成为开发者</a>
                 <a href="/Login" class="user button">登录</a>
                 <a href="/Register" class="user button">注册</a>
                 <a href="" class="user button">发布项目</a>

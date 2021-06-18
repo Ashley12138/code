@@ -38,7 +38,7 @@
                         </div>
                         <div @click="pioneer" class="info">
                           <div class="title1">开发者</div>
-                          <div class="desc">可在码市报名项目，赚取收益</div>
+                          <div class="desc">可在汉迅报名项目，赚取收益</div>
                         </div>
                       </div>
                     </label>
@@ -52,7 +52,7 @@
                         </div>
                         <div @click="needs" class="info">
                           <div class="title1">需求方</div>
-                          <div class="desc">可在码市发布项目，实现需求</div>
+                          <div class="desc">可在汉迅发布项目，实现需求</div>
                         </div>
                       </div>
                     </label>

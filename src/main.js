@@ -1,3 +1,4 @@
+// import './plugins/axios'
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -7,7 +8,11 @@ import 'element-plus/lib/theme-chalk/index.css';
 import "./assets/font/iconfont.css"
 import "./assets/font/iconfont"
 
-// Vue.use(ElementUI);
+// 定义公共方法
+// import axios from "axios";
+// Vue.prototype.axios=axios.create({
+//   baseURL:"https://codemart.com/api"
+// });
 
 createApp(App).use(store).use(router).use(ElementPlus).mount('#app')
 // const app = createApp(App)

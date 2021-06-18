@@ -21,6 +21,21 @@ const routes = [
     name: 'Find',
     component: () => import('../views/Find.vue')
   },
+  {
+    path: '/Proto',
+    name: 'Proto',
+    component: () => import('../views/Prototype.vue')
+  },
+  {
+    path: '/Question',
+    name: 'Question',
+    component: () => import('../views/Question.vue')
+  },
+  {
+    path: '/BecomePioneer',
+    name: 'BecomePioneer',
+    component: () => import('../views/BecomePioneer.vue')
+  },
 ]
 
 const router = createRouter({
