@@ -55,12 +55,12 @@
           <div class="category-section-list">
             <div class="category-section category">
               <h2>
-                <a href="">我是需求方</a>
+                <a href="/">我是需求方</a>
               </h2>
               <ul>
                 <li class="section">
                   <h3>
-                    <a href="">发布项目</a>
+                    <a href="/ListMenu">发布项目</a>
                   </h3>
                 </li>
                 <li class="section">
@@ -114,88 +114,96 @@
             </div>
           </div>
           <section class="content-main fr">
-            <div class="home-article">
-              <div class="widget-column promoted-articles">
-                <h3>被推荐的文档</h3>
-                <ul>
-                  <li v-for="(item, index) in fileList" :key="index">
-                    <a :href="item.url" :title="item.title">{{ item.title }}</a>
+            <h2>我是需求方</h2>
+            <p class="description"></p>
+            <div class="section-tree">
+              <div
+                class="section section-51129"
+                v-for="(item, index) in sectionList"
+                :key="index"
+              >
+                <h3>
+                  <a href="">{{ item.title }}</a>
+                </h3>
+                <ul class="article-list">
+                  <li
+                    :class="x.star ? 'promoted' : ''"
+                    v-for="(x, y) in item.articleList"
+                    :key="y"
+                  >
+                    <a href="" :title="x">{{ x.content }}</a>
                   </li>
                 </ul>
+                <a href="" class="more">查看全部{{ item.all }}篇文档</a>
               </div>
             </div>
           </section>
         </div>
       </section>
     </main>
-    <footer class="footer"></footer>
-    <div
-      class="kf5-support-chat kf5-chatSupport-right-bottom"
-      style="position: relative; z-index: 999"
-    >
-      <div
-        id="kf5-support-btn"
-        class="kf5-chatSupport-btn kf5-chatSupport-style kf5-waves"
-        style="color: #fff; background: #4677c1"
-      >
-        <svg
-          t="1621926453587"
-          class="icon"
-          viewBox="0 0 1024 1024"
-          version="1.1"
-          xmlns="http://www.w3.org/2000/svg"
-          p-id="6816"
-          width="25"
-          height="25"
-          style="padding-top:5px;box-sizing:border-box"
-        >
-          <path
-            d="M485.734 76.86c-235.218 0-425.578 165.593-425.578 369.859 0 125.328 72.735 236.765 182.61 304.828v114.531c0 15.469 10.828 24.75 23.218 24.75 4.641 0 9.297-1.531 12.375-3.094l116.063-77.375c29.422 6.188 58.812 7.75 89.765 7.75 235.22 0 425.563-165.593 425.563-369.859 1.566-205.797-188.778-371.39-424.016-371.39z m0 679.346c-26.312 0-52.625-3.094-78.921-7.75l-12.391-3.094c-7.735-1.53-15.469 0-23.219 4.657l-10.812 7.718-55.72 37.157V734.55c0-10.844-6.187-21.688-15.468-26.313l-15.484-9.28C177.766 641.674 120.516 547.3 120.516 448.252c0-170.219 162.5-307.937 363.671-307.937 201.188 0 363.657 137.718 363.657 307.937 1.565 168.672-162.466 307.953-362.11 307.953zM244.313 457.531c0 28.219 22.859 51.078 51.078 51.078 28.203 0 51.062-22.859 51.062-51.078 0-28.172-22.86-51.047-51.062-51.047-28.22 0-51.079 22.875-51.079 51.047z m193.453 0c0 28.219 22.859 51.078 51.062 51.078s51.078-22.859 51.078-51.078c0-28.172-22.875-51.047-51.078-51.047s-51.062 22.875-51.062 51.047z m187.234 0c0 28.219 22.875 51.078 51.063 51.078 28.218 0 51.093-22.859 51.093-51.078 0-28.172-22.875-51.047-51.093-51.047-28.188 0-51.063 22.875-51.063 51.047z m293.128 79.957c-0.912-1.152-1.872-2.256-2.816-3.408-6.656 25.28-16.16 49.632-28.128 72.752 0.496 1.12 1.12 2.192 1.6 3.312 8.096 18.624 12.496 38.752 12.496 59.744 0 55.664-32.16 108.688-86.064 140.848l-8.688 5.216c-5.216 2.592-8.72 8.688-8.72 14.784v33.904l-31.28-20.88-6.096-4.336c-4.336-2.592-8.688-3.472-13.024-2.592l-6.944 1.712c-14.816 2.656-29.6 4.336-44.336 4.336-35.44 0-68.816-7.84-97.936-21.504-28.912 6.752-58.912 11.008-89.808 12.464 48.4 41.712 115.008 67.504 188.592 67.504 19.504 0 38-0.976 56.496-4.848l73.056 48.688c1.936 0.976 4.848 1.936 7.744 1.936 7.808 0 14.624-5.84 14.624-15.568v-72.096c69.152-42.848 114.944-112.976 114.944-191.84 0-48.192-16.848-92.976-45.712-130.128z"
-            fill="#ffffff"
-            p-id="6817" 
-          ></path>
-        </svg>
-        <span>在线客服</span>
-      </div>
-    </div>
   </div>
 </template>
 <script>
-import miniNav from '../components/MiniNav.vue'
+import miniNav from "../components/MiniNav.vue";
 export default {
-  components:{
-    miniNav
+  components: {
+    miniNav,
   },
   data() {
     return {
-      fileList: [
+      sectionList: [
         {
-          url: "",
-          title: "开发者如何建立阶段划分？",
+          title: "发布项目",
+          articleList: [
+            { content: "需求方指南" },
+            { content: "如何注册成需求方？" },
+            { content: "如何发布项目需求？" },
+            { content: "需求方项目合作须知" },
+            { star: true, content: "如何给项目估价？" },
+            { content: "发布项目后如何取消？" },
+          ],
+          all: "8",
         },
         {
-          url: "",
-          title: "码市会员是什么？",
+          title: "招募开发",
+          articleList: [
+            { content: "项目发布后如何查看报名者信息？" },
+            { content: "如何选择开发者确定合作？" },
+            { content: "如何联系开发者？" },
+          ],
+          all: "3",
         },
         {
-          url: "",
-          title: "需求方确定人选后如何启动项目？",
+          title: "支付款项",
+          articleList: [
+            { content: "如何托管项目款？" },
+            { star: true, content: "如何在开发宝里充值或提现？" },
+            { content: "如何申请开具发票？" },
+            { content: "支付遇到问题怎么办？" },
+            { content: "如何一键支付项目所有阶段款项？" },
+          ],
+          all: "8",
         },
         {
-          url: "",
-          title: "需求方在码市做项目步骤是什么？",
+          title: "开发项目",
+          articleList: [
+            { star: true, content: "需求方确定人选后如何启动项目？" },
+            { content: "是否可以跟开发者进行线下交易？" },
+            { content: "如何申请修改项目阶段计划？" },
+          ],
+          all: "3",
         },
         {
-          url: "",
-          title: "如何申请中止项目？",
-        },
-        {
-          url: "",
-          title: "如何在开发宝里充值或提现？",
-        },
-        {
-          url: "",
-          title: "如何给项目估价？",
+          title: "验收项目",
+          articleList: [
+            { content: "如何验收项目？" },
+            { content: "项目能否提供质保期？发现bug谁来修复？" },
+            { content: "项目的源码等产出所有权归谁？" },
+            { content: "项目验收后如何对开发者进行评价？" },
+            { star: true, content: "如何申请中止项目？" },
+            { content: "双方无法达成一致验收意见时如何处理？" },
+          ],
+          all: "7",
         },
       ],
     };
@@ -319,36 +327,63 @@ main {
       }
       .content-main {
         width: 70%;
-        .widget-column {
-          margin-bottom: 40px;
+        .section {
+          display: inline-block;
+          vertical-align: top;
+          width: 48%;
+          padding-right: 30px;
+          -webkit-box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          box-sizing: border-box;
+          margin-bottom: 50px;
           h3 {
-            font-size: 16px;
+            font-size: 18px;
+            padding-left: 10px;
+            border-left: 2px solid #21d376;
+            line-height: 1;
             margin-bottom: 20px;
-            font-weight: bold;
+            a {
+              color: #374051;
+            }
           }
-          ul {
+          .article-list {
+            margin-bottom: 10px;
             li {
-              margin-bottom: 16px;
-              position: relative;
+              margin-bottom: 8px;
+              line-height: 1.5em;
               padding-left: 12px;
-              a {
-                color: #307acd;
-                font-size: 15px;
-              }
-              a:hover {
-                color: #448ee1;
-              }
+              position: relative;
             }
             li::before {
               content: "";
+              position: absolute;
+              left: 0;
+              top: 7px;
               height: 4px;
               width: 4px;
               border-radius: 100%;
-              background: #ced6d8;
-              position: absolute;
-              left: 0;
-              top: 5px;
+              background-color: #d0d3dc;
             }
+            a {
+              color: #307acd;
+              font-size: 16px;
+            }
+            .promoted::before {
+              content: "★";
+              font-family: "kf5-help";
+              font-size: 14px;
+              background: none;
+              height: auto;
+              width: auto;
+              left: -5px;
+              top: 0;
+              color: #ffa900;
+            }
+          }
+          .more {
+            font-size: 12px;
+            margin-left: 12px;
+            color: #777777;
           }
         }
       }
@@ -357,26 +392,18 @@ main {
         float: right;
       }
     }
-  }
-}
-.kf5-support-chat{
-  position: fixed !important;
-  margin: 0;
-  .kf5-chatSupport-style{
-    right: 50px;
-    bottom: 0;
-    font-size: 16px;
-    padding: 0 15px 0 12px;
-    line-height: 40px;
-    text-align: center;
-    border: 1px solid rgba(0, 0, 0, .05);;
-    transform-origin: center bottom;
-  }
-  .kf5-chatSupport-btn{
-    position: fixed;
-    cursor: pointer;
-    overflow: visible;
-    z-index: 100;
+    h2 {
+      font-size: 18px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid #e2eaec;
+      padding-left: 4px;
+      margin-bottom: 30px;
+      font-weight: bold;
+    }
+    h2 + .description {
+      margin: -24px 0 24px 0;
+      min-height: 1px;
+    }
   }
 }
 </style>

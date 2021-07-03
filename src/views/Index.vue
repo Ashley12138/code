@@ -1,29 +1,67 @@
 <template>
-  <div class="main-container">
-    <header class="box" id="mart-header">
+  <div class="main-container" ref="viewbox">
+    <header
+      :class="searchBarFixed == true ? 'fixed mart-header' : 'mart-header'"
+      id="mart-header"
+      style="opacity: 1"
+    >
       <!-- 顶部导航条 -->
       <div id="top-menu">
-        <div class="contair clearfix">
+        <div class="container clearfix">
           <a class="logo" href="/">
-            <!-- <img v-if="blue" src="@/assets/mart-logo.png" alt="" />
-            <img v-else src="@/assets/mart-logo-white.png" alt="" /> -->
-            <div style="display:inline-block;font-size:35px;font-weight: bold;float: left;line-height:64px;padding-left:15px;">汉迅</div>
+            <div
+              style="
+                display: inline-block;
+                font-size: 32px;
+                font-weight: 400;
+                float: left;
+                color: tomato;
+              "
+            >
+              汉迅
+            </div>
           </a>
           <div class="leftmenu">
-            <ul>
+            <ul class="nav">
               <li><a href="/Find">找项目</a></li>
-              <li><a href="/Proto">原型广场</a></li>
               <li>
-                <el-dropdown>
-                  <span class="el-dropdown-link"> 帮助中心 </span>
-                  <template #dropdown>
-                    <el-dropdown-menu>
-                      <el-dropdown-item>常见问题</el-dropdown-item>
-                      <el-dropdown-item divided>我是需求方</el-dropdown-item>
-                      <el-dropdown-item>我是开发方</el-dropdown-item>
-                    </el-dropdown-menu>
-                  </template>
-                </el-dropdown>
+                <a href="/Proto"
+                  >原型广场
+                  <svg
+                    t="1620717829932"
+                    class="icon new-tip"
+                    viewBox="0 0 2048 1024"
+                    version="1.1"
+                    xmlns="http://www.w3.org/2000/svg"
+                    p-id="4839"
+                    width="2.4rem"
+                    height="1rem"
+                  >
+                    <path
+                      d="M113.777778 0h1820.444444a113.777778 113.777778 0 0 1 113.777778 113.777778v796.444444a113.777778 113.777778 0 0 1-113.777778 113.777778H113.777778a113.777778 113.777778 0 0 1-113.777778-113.777778V113.777778a113.777778 113.777778 0 0 1 113.777778-113.777778z m164.124444 248.206222V739.555556h95.630222V390.542222L574.236444 739.555556h102.627556V248.206222h-95.630222v343.04l-195.697778-343.04H277.902222z m857.998222 87.04v-87.04h-360.334222V739.555556h372.337778v-88.348445h-272.042667v-126.293333h238.705778v-85.333334h-238.705778V335.246222h259.982223z m159.004445-87.04h-108.999111L1325.226667 739.555556h95.345777l59.335112-287.288889 17.294222-95.004445 17.351111 95.004445L1573.888 739.555556h98.019556l138.296888-491.349334h-104.334222l-65.649778 284.330667-15.018666 75.377778-14.961778-78.336-58.368-281.372445h-108.316444l-55.352889 283.022222-14.336 76.686223-13.994667-78.336-64.967111-281.372445z"
+                      fill="#f75288"
+                      p-id="4840"
+                    ></path></svg
+                ></a>
+              </li>
+              <li
+                @mouseover="show"
+                @mouseout="hidden"
+                class="value-add-service-web"
+              >
+                <a>帮助中心</a>
+                <!-- 帮助中心的下拉列表 -->
+                <div :class="enter ? 'child-menu' : 'hidden'">
+                  <div class="menu-item">
+                    <a href="/Question" target="_blank">常见问题</a>
+                  </div>
+                  <div class="menu-item">
+                    <a href="/category" target="_blank">我是需求方</a>
+                  </div>
+                  <div class="menu-item">
+                    <a href="" target="_blank">我是开发方</a>
+                  </div>
+                </div>
               </li>
             </ul>
           </div>
@@ -33,37 +71,101 @@
                 <a href="/becomePioneer" class="user button">成为开发者</a>
                 <a href="/Login" class="user button">登录</a>
                 <a href="/Register" class="user button">注册</a>
-                <a href="" class="user button">发布项目</a>
+                <a href="" class="kuang user button">发布项目</a>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="index-top">
-        <div class="motto-contair">
-          <div class="top-motto-contair">
-            <div class="top-motto">
-              新版阶段划分
-              <br />
-              自助验收,轻松交付
-            </div>
-            <a class="start-button" href="">了解详情</a>
-          </div>
-          <div class="spacer"></div>
-          <div class="sub-motto-contair">
-            <img
-              src="https://codemart.com/images/index/banner-project.png"
-              alt=""
-            />
-          </div>
-        </div>
-      </div>
     </header>
-    <div class="view-container">
+    <div class="view-container detailed-footer transparent">
       <div id="mart-index">
         <div class="first-page">
           <!-- 头部菜单和轮播图 -->
-
+          <div class="bx-wrapper" style="max-width: 100%">
+            <div
+              class="bx-viewport"
+              style="
+                width: 100%;
+                overflow: hidden;
+                position: relative;
+                height: 574px;
+              "
+            >
+              <div id="banner" style="width: auto; position: relative">
+                <transition :name="isFirst ? 'two' : 'one'">
+                  <div v-show="first" class="banner-one">
+                    <div class="index-grid index-top">
+                      <div class="top-motto-container">
+                        <p class="top-motto">互联网软件外包服务平台</p>
+                      </div>
+                      <div class="sub-motto-container">
+                        <p class="sub-motto">
+                          提供您所需的全套软件开发服务
+                          <br />
+                        </p>
+                      </div>
+                      <div class="btn-list">
+                        <a href="" class="start-button needLogin"
+                          >发布您的需求</a
+                        >
+                        <a href="/find" class="start-button project-list-btn"
+                          >查看项目列表</a
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </transition>
+                <transition :name="isFirst ? 'one' : 'two'">
+                  <div v-show="!first" class="banner-project">
+                    <div class="index-grid index-top">
+                      <div class="motto-container">
+                        <div class="top-motto-container">
+                          <div class="top-motto">
+                            新版阶段划分
+                            <br />
+                            自助验收,轻松交付
+                          </div>
+                          <a class="start-button" href="/">了解详情</a>
+                        </div>
+                        <div class="spacer"></div>
+                        <div class="sub-motto-container">
+                          <img
+                            src="https://codemart.com/images/index/banner-project.png"
+                            alt=""
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </transition>
+              </div>
+              <div class="bx-controls bx-has-controls-direction bx-has-pager">
+                <div class="bx-controls-direction">
+                  <a class="bx-prev" @click="touch">Prev</a>
+                  <a class="bx-next" @click="touch">Next</a>
+                </div>
+                <div class="bx-pager bx-default-pager">
+                  <div class="bx-pager-item">
+                    <a
+                      :class="first ? 'bx-pager-link active' : 'bx-pager-link'"
+                      @click="point(0)"
+                      data-slide-index="0"
+                      >1</a
+                    >
+                  </div>
+                  <div class="bx-pager-item">
+                    <a
+                      :class="first ? 'bx-pager-link' : 'bx-pager-link active'"
+                      @click="point(1)"
+                      data-slide-index="1"
+                      >2</a
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="figure-page">
             <div class="figure-grid grid">
               <div class="col figure-tab">
@@ -373,91 +475,132 @@
         </div>
       </div>
     </div>
-    <footer id="mart-footer">
-      <div id="detailed-footer">
-        <div class="footer-container">
-          <section class="footer-section section-left">
-            <div class="footer-list-menu-container">
-              <p class="footer-list-menu-head">关于码市</p>
-              <ul class="footer-list-menu">
-                <li><a href="">码市介绍</a></li>
-                <li><a href="">媒体报道</a></li>
-                <li><a href="">码市案例</a></li>
-              </ul>
-            </div>
-            <div class="footer-list-menu-container">
-              <a href="">
-                <p class="footer-list-menu-head">帮助</p>
-              </a>
-              <ul class="footer-list-menu">
-                <li><a href="">如何发布项目需求？</a></li>
-                <li><a href="">如何为发布的项目需求定价？</a></li>
-                <li><a href="">查看更多>></a></li>
-              </ul>
-            </div>
-          </section>
-          <section class="footer-section section-right">
-            <div class="footer-list-contact">
-              <p>
-                <img src="../assets/mart-logo-white.png" alt="" class="logo" />
-              </p>
-              <p>1234-123456789</p>
-              <p>
-                <a href="">support@codemart.com</a>
-              </p>
-              <p>周一至周五 9:30 - 19:00</p>
-            </div>
-          </section>
-        </div>
+    <bottom-footer></bottom-footer>
+    <div
+      class="kf5-support-chat kf5-chatSupport-right-bottom"
+      style="position: relative; z-index: 999"
+    >
+      <div
+        id="kf5-support-btn"
+        class="kf5-chatSupport-btn kf5-chatSupport-style kf5-waves"
+        style="color: #fff; background: #4677c1"
+      >
+        <svg
+          t="1621926453587"
+          class="icon"
+          viewBox="0 0 1024 1024"
+          version="1.1"
+          xmlns="http://www.w3.org/2000/svg"
+          p-id="6816"
+          width="25"
+          height="25"
+          style="padding-top: 5px; box-sizing: border-box"
+        >
+          <path
+            d="M485.734 76.86c-235.218 0-425.578 165.593-425.578 369.859 0 125.328 72.735 236.765 182.61 304.828v114.531c0 15.469 10.828 24.75 23.218 24.75 4.641 0 9.297-1.531 12.375-3.094l116.063-77.375c29.422 6.188 58.812 7.75 89.765 7.75 235.22 0 425.563-165.593 425.563-369.859 1.566-205.797-188.778-371.39-424.016-371.39z m0 679.346c-26.312 0-52.625-3.094-78.921-7.75l-12.391-3.094c-7.735-1.53-15.469 0-23.219 4.657l-10.812 7.718-55.72 37.157V734.55c0-10.844-6.187-21.688-15.468-26.313l-15.484-9.28C177.766 641.674 120.516 547.3 120.516 448.252c0-170.219 162.5-307.937 363.671-307.937 201.188 0 363.657 137.718 363.657 307.937 1.565 168.672-162.466 307.953-362.11 307.953zM244.313 457.531c0 28.219 22.859 51.078 51.078 51.078 28.203 0 51.062-22.859 51.062-51.078 0-28.172-22.86-51.047-51.062-51.047-28.22 0-51.079 22.875-51.079 51.047z m193.453 0c0 28.219 22.859 51.078 51.062 51.078s51.078-22.859 51.078-51.078c0-28.172-22.875-51.047-51.078-51.047s-51.062 22.875-51.062 51.047z m187.234 0c0 28.219 22.875 51.078 51.063 51.078 28.218 0 51.093-22.859 51.093-51.078 0-28.172-22.875-51.047-51.093-51.047-28.188 0-51.063 22.875-51.063 51.047z m293.128 79.957c-0.912-1.152-1.872-2.256-2.816-3.408-6.656 25.28-16.16 49.632-28.128 72.752 0.496 1.12 1.12 2.192 1.6 3.312 8.096 18.624 12.496 38.752 12.496 59.744 0 55.664-32.16 108.688-86.064 140.848l-8.688 5.216c-5.216 2.592-8.72 8.688-8.72 14.784v33.904l-31.28-20.88-6.096-4.336c-4.336-2.592-8.688-3.472-13.024-2.592l-6.944 1.712c-14.816 2.656-29.6 4.336-44.336 4.336-35.44 0-68.816-7.84-97.936-21.504-28.912 6.752-58.912 11.008-89.808 12.464 48.4 41.712 115.008 67.504 188.592 67.504 19.504 0 38-0.976 56.496-4.848l73.056 48.688c1.936 0.976 4.848 1.936 7.744 1.936 7.808 0 14.624-5.84 14.624-15.568v-72.096c69.152-42.848 114.944-112.976 114.944-191.84 0-48.192-16.848-92.976-45.712-130.128z"
+            fill="#ffffff"
+            p-id="6817"
+          ></path>
+        </svg>
+        <span>在线客服</span>
       </div>
-      <div id="simple-footer">
-        <div class="footer-container">
-          <div class="site">
-            <div class="brand">
-              <a href="">
-                <img src="../assets/mart-logo-white.png" alt="" />
-              </a>
-            </div>
-            <div>
-              Copyright ⓒ -------------
-              <a href="">-----</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </footer>
+    </div>
   </div>
 </template>
 <script>
-export default {};
+import bottomFooter from "../components/BottomFooter.vue";
+export default {
+  components: {
+    bottomFooter,
+  },
+  data() {
+    return {
+      list: false,
+      first: true,
+      top,
+      searchBarFixed: false,
+      isFirst: true,
+      enter: false,
+      timer: "",
+    };
+  },
+  methods: {
+    show() {
+      this.enter = true;
+    },
+    hidden() {
+      this.enter = false;
+    },
+    handleScroll() {
+      var scrollTop =
+        window.pageYOffset ||
+        document.documentElement.scrollTop ||
+        document.body.scrollTop;
+      // console.log(scrollTop);
+      var offsetTop = document.querySelector("#mart-header").offsetTop;
+      // console.log(offsetTop); //28
+      // 页面滚动高度超过头部导航条的高度时
+      if (scrollTop > offsetTop * 1 + 300) {
+        // 头部导航条固定在头部
+        this.searchBarFixed = true;
+      } else {
+        this.searchBarFixed = false;
+      }
+    },
+    // 点击轮播图上两边的箭头
+    touch() {
+      this.first = !this.first;
+      this.isFirst = !this.isFirst;
+    },
+    point(i) {
+      if (i == 0) {
+        this.first = true;
+      } else {
+        this.first = false;
+      }
+      this.isFirst = !this.isFirst;
+    },
+  },
+  mounted() {
+    window.addEventListener("scroll", this.handleScroll);
+    this.timer = setInterval(this.touch, 3000);
+  },
+  beforeDestroy() {
+    clearInterval(this.timer);
+  },
+  destroyed() {
+    window.removeEventListener("scroll", this.handleScroll);
+  },
+};
 </script>
 <style lang="scss" scoped>
-#top-menu {
-  height: 5rem;
-  background: 0 0;
-  border-bottom: 0;
-  transition: 0.1s;
-  box-shadow: none;
-  width: 100%;
+.one-enter-active,
+.one-leave-active,
+.two-enter-active,
+.two-leave-active {
+  transition: opacity 0.5s;
 }
-.contair {
-  padding: 0 28px;
-  display: flex;
-  position: relative;
+.one-enter {
+  opacity: 0;
+}
+.one-leave-to {
+  opacity: 0;
+}
+.two-enter {
+  opacity: 1;
+}
+.two-leave-to {
+  opacity: 1;
 }
 .clearfix::after {
   content: "";
-  display: block;
+  display: table;
+  overflow: hidden;
   clear: both;
 }
-.box {
-  float: none;
-  background: rgba(0, 0, 0, 0)
-    url("https://656e-env-iknzbddq-1254055692.tcb.qcloud.la/uploads/1599901907553.png")
-    no-repeat scroll center center / cover;
-  width: 100%;
-  // position: absolute;
-  // top: 2rem;
+.clearfix::before {
+  content: "";
+  display: table;
 }
 .logo img {
   height: 30px;
@@ -468,9 +611,10 @@ export default {};
 .leftmenu li {
   float: left;
   text-align: center;
-  height: 64px;
+  height: 70px;
   width: 84px;
   list-style: none;
+  margin-top: 0;
   a,
   span {
     text-decoration: none;
@@ -479,14 +623,16 @@ export default {};
     line-height: 64px;
   }
 }
+
 .rightmenu {
   float: right;
-  height: 64px;
-  line-height: 64px;
-  margin-left: 30rem;
+  height: 70px;
+  line-height: 70px;
   margin-top: 1rem;
+  margin-left: 25rem;
+  margin-top: 0;
   .login-zone {
-    line-height: 64px;
+    line-height: 70px;
     text-align: center;
     float: left;
     .btns {
@@ -518,6 +664,9 @@ export default {};
     }
   }
 }
+header {
+  display: block;
+}
 .el-dropdown-link {
   cursor: pointer;
 }
@@ -529,13 +678,29 @@ export default {};
 }
 .index-top {
   position: relative;
+  background: 0 0;
+  border: 0;
+  max-height: 640px;
+  height: calc(100vh - 115px);
+  min-height: 41rem;
+  padding-top: 6.5rem;
+  padding-bottom: 39px;
+  display: -webkit-box;
+  display: -webkit-flex;
   display: flex;
-  padding: 91px 0 39px 0;
-  align-items: center;
-  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
   flex-direction: column;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  z-index: 1;
 }
-.motto-contair {
+.motto-container {
   display: flex;
   width: 85%;
   max-width: 900px;
@@ -562,7 +727,7 @@ export default {};
   width: 18%;
   max-width: 160px;
 }
-.sub-motto-contair img {
+.sub-motto-container img {
   width: 333px;
   min-width: 333px;
 }
@@ -757,9 +922,6 @@ export default {};
           font-size: 0;
           line-height: 0;
           display: inline-block;
-          .active {
-            background-color: #4289db;
-          }
         }
       }
     }
@@ -768,21 +930,212 @@ export default {};
 .bx-pager-link {
   background-color: gray;
 }
+.active {
+  background-color: #fff !important;
+  width: 10px !important;
+  height: 10px !important;
+}
 .bx-default-pager a {
   text-indent: -9999px;
   display: block;
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   margin: 0 5px;
   outline: 0;
   border-radius: 5px;
   text-decoration: none;
 }
 .bx-default-pager a:hover {
-  background-color: #000;
+  background-color: #fff;
+  width: 10px;
+  height: 10px;
 }
 #mart-index {
   box-sizing: border-box;
+  .first-page {
+    max-height: 960px;
+    position: relative;
+    z-index: 10000;
+    .bx-wrapper {
+      box-shadow: none;
+      border: none;
+      background: 0 0;
+      margin: 0 auto;
+      position: relative;
+      padding: 0;
+      touch-action: pan-y;
+      #banner {
+        z-index: 1000;
+        background: #1f2d3d;
+        min-height: 640px;
+        .banner-one {
+          background: rgba(0, 0, 0, 0)
+            url("https://656e-env-iknzbddq-1254055692.tcb.qcloud.la/uploads/1599295739018.png")
+            no-repeat scroll center center / cover;
+          float: none;
+          list-style: outside none none;
+          position: absolute;
+          width: 1263px;
+          z-index: 50;
+          display: block;
+        }
+        .index-top {
+          position: relative;
+          background: 0 0;
+          border: 0;
+          max-height: 640px;
+          height: calc(100vh - 115px);
+          min-height: 41rem;
+          padding-top: 6.5rem;
+          padding-bottom: 39px;
+          display: -webkit-box;
+          display: -webkit-flex;
+          display: flex;
+          -webkit-box-orient: vertical;
+          -webkit-box-direction: normal;
+          -webkit-flex-direction: column;
+          flex-direction: column;
+          -webkit-box-pack: center;
+          -webkit-justify-content: center;
+          justify-content: center;
+          -webkit-box-align: center;
+          -webkit-align-items: center;
+          align-items: center;
+          z-index: 1;
+          .top-motto-container {
+            width: 100%;
+            z-index: -2;
+            .top-motto {
+              text-align: center;
+              font-size: 3rem;
+              line-height: 4rem;
+              color: #fff;
+            }
+          }
+          .sub-motto-container {
+            margin-left: 0;
+            width: 100%;
+            margin-top: 1.5rem;
+            .sub-motto {
+              line-height: 1.8rem;
+              text-align: center;
+              font-size: 1.3rem;
+              color: #fff;
+              font-weight: 200;
+            }
+          }
+          .btn-list {
+            text-align: center;
+            .start-button {
+              margin: 53px auto 0;
+              border: none;
+              width: 13.8rem;
+              line-height: 49px;
+              display: inline-block;
+              height: 49px;
+              text-align: center;
+              background-color: #4187db;
+              color: #fff;
+              border-radius: 5px;
+              font-size: 1.3rem;
+              cursor: pointer;
+              transition: 0.3s linear;
+            }
+            .project-list-btn {
+              background: 0 0;
+              border: 1px solid #fff !important;
+              margin-left: 40px;
+            }
+          }
+        }
+        .index-grid {
+          margin: 0 auto;
+          max-width: 980px;
+        }
+        .banner-project {
+          background: rgba(0, 0, 0, 0)
+            url("https://656e-env-iknzbddq-1254055692.tcb.qcloud.la/uploads/1599901907553.png")
+            no-repeat scroll center center / cover;
+          float: none;
+          list-style: outside none none;
+          position: absolute;
+          width: 1263px;
+          z-index: 50;
+          display: block;
+        }
+      }
+      .bx-controls-direction {
+        a {
+          position: absolute;
+          top: 50%;
+          margin-top: -16px;
+          outline: 0;
+          width: 32px;
+          height: 32px;
+          text-indent: -9999px;
+          z-index: 9999;
+        }
+        .bx-prev {
+          left: 10px;
+          background: url("https://assets.codemart.com/images/index/index-banner-next@2x.png");
+          background-size: auto;
+          width: 1.2rem;
+          height: 3rem;
+          background-size: cover;
+          opacity: 0.6;
+        }
+        .bx-next {
+          right: 10px;
+          background: url("https://assets.codemart.com/images/index/index-banner-next@2x.png");
+          background-size: auto;
+          -webkit-transform: scaleX(-1);
+          transform: scaleX(-1);
+          width: 1.2rem;
+          height: 3rem;
+          background-size: cover;
+          opacity: 0.6;
+        }
+      }
+      .bx-pager {
+        bottom: 21px;
+        z-index: 1000;
+        text-align: center;
+        font-size: 0.85em;
+        font-family: Arial;
+        font-weight: 700;
+        color: #666;
+        padding-top: 20px;
+        position: absolute;
+        width: 100%;
+        .bx-pager-item {
+          vertical-align: middle;
+        }
+        .bx-default-pager {
+          // .active {
+          //   background: #fff;
+          //   width: 10px;
+          //   height: 10px;
+          // }
+          a {
+            margin: 0 9px;
+            background: rgba(221, 227, 235, 0.8);
+            // height: 6px;
+            // width: 6px;
+            margin: 0 9px;
+          }
+        }
+      }
+      .bx-pager-item {
+        display: inline-block;
+        font-size: 0;
+        line-height: 0;
+      }
+    }
+  }
+}
+p {
+  padding: 0;
+  margin: 0;
 }
 .start-page {
   padding: 5rem;
@@ -820,99 +1173,116 @@ export default {};
   position: relative;
   overflow-x: hidden;
   min-height: 100%;
-}
-#mart-footer {
-  width: 100%;
-  bottom: 0;
-  position: absolute;
-  box-sizing: border-box;
-  #detailed-footer {
-    background: #273444;
-    .footer-container {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      max-width: 1140px;
-      padding: 56px 1rem 70px 1rem;
-      margin: 0 auto;
-      .section-left {
-        display: flex;
-        .footer-list-menu-container {
-          margin-right: 70px;
-        }
-      }
-      .section-right {
-        .footer-list-contact {
-          display: inline-block;
-          vertical-align: top;
-          p:first-child {
-            margin-top: 0;
-          }
-          p {
-            color: #8796a8;
-            font-size: 1rem;
-            margin-top: 1rem;
-            .logo {
-              height: 30px;
-            }
-          }
-        }
-      }
-    }
-  }
-  #simple-footer {
-    background: #1f2d3d;
-    color: #8796a8;
-    .footer-container {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-sizing: border-box;
-      width: 100%;
-      max-width: 1140px;
-      padding: 17.5px 1rem;
-      margin: auto;
-      .site {
-        display: flex;
-        align-items: center;
-        .brand {
-          display: flex;
-          margin-right: 1rem;
-          align-items: center;
-          a {
-            margin-right: 1rem;
-            display: inline-block;
-            font-size: 0;
-            color: #8796a8;
-            text-decoration: none;
-            img {
-              height: 20px;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-#mart-footer a {
-  color: #8796a8;
-  text-decoration: none;
-}
-.footer-list-menu-head {
-  opacity: 0.9;
-  color: #eff2f7;
-  font-size: 16px;
-  line-height: 24px;
-}
-.footer-list-menu {
-  margin-top: 1.5rem;
   li {
-    margin-top: 1rem;
+    float: left;
+    width: 6rem;
+    text-align: center;
+    margin-right: 0.5rem;
+    position: relative;
     a {
-      color: #8796a8;
-      font-size: 1rem;
-      margin-top: 1rem;
-      text-decoration: none;
+      cursor: pointer;
+      // color: #fff;
+    }
+    a:hover {
+      color: #e0e6ed;
+    }
+    .new-tip {
+      position: absolute;
+      top: 1rem;
+      left: 4.7em;
+      margin: 0 0.5rem;
+    }
+  }
+  .fixed {
+    position: fixed !important;
+    top: 0 !important;
+    background: #fff !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+    .leftmenu {
+      ul {
+        li {
+          a {
+            color: black;
+          }
+          a:hover {
+            color: #4289dc;
+          }
+        }
+      }
+    }
+    .rightmenu {
+      .login-zone {
+        .btns {
+          .user {
+            color: black;
+          }
+          .user:hover {
+            color: #4289dc;
+            border: none;
+          }
+          .kuang {
+            border: 1px solid black;
+            border-radius: 5px;
+            box-sizing: border-box;
+          }
+        }
+      }
+    }
+  }
+  .mart-header {
+    z-index: 10002;
+    background: 0 0;
+    top: 2rem;
+    position: absolute;
+    width: 100%;
+    height: 5rem;
+    line-height: 5rem;
+    #top-menu {
+      height: 5rem;
+      background: 0 0;
+      border-bottom: 0;
+      transition: 0.1s;
+      box-shadow: none;
+      width: 100%;
+      .container {
+        padding: 0 28px;
+        box-sizing: border-box;
+        // display: flex;
+        position: relative;
+        width: 100%;
+        height: 70px;
+      }
+      .nav {
+        float: left;
+        height: 70px;
+        line-height: 70px;
+        margin-left: 2rem;
+        margin-top: 0;
+        .value-add-service-web {
+          .child-menu {
+            background: #2d3236;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.5);
+            border-radius: 0.4rem;
+            width: 6rem;
+            margin-top: -1rem;
+            .menu-item:first-child {
+              border-bottom: 0.1rem solid hsla(212, 9%, 63%, 0.2);
+            }
+            .menu-item {
+              line-height: 3rem;
+              height: 3rem;
+              text-align: center;
+              a {
+                color: #fff;
+                line-height: 3rem;
+              }
+            }
+          }
+          .hidden {
+            display: none;
+          }
+        }
+      }
     }
   }
 }
@@ -920,5 +1290,25 @@ li,
 ul {
   list-style: none;
   padding: 0;
+}
+.kf5-support-chat {
+  position: fixed !important;
+  margin: 0;
+  .kf5-chatSupport-style {
+    right: 50px;
+    bottom: 0;
+    font-size: 16px;
+    padding: 0 15px 0 12px;
+    line-height: 40px;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transform-origin: center bottom;
+  }
+  .kf5-chatSupport-btn {
+    position: fixed;
+    cursor: pointer;
+    overflow: visible;
+    z-index: 100;
+  }
 }
 </style>

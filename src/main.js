@@ -14,6 +14,10 @@ import "./assets/font/iconfont"
 //   baseURL:"https://codemart.com/api"
 // });
 
+// 引入echarts
+// import echarts from "echarts"
+// Vue.prototype.$echarts = echarts
+
 createApp(App).use(store).use(router).use(ElementPlus).mount('#app')
 // const app = createApp(App)
 // app.mount('#app')
