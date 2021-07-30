@@ -65,13 +65,99 @@
               </li>
             </ul>
           </div>
-          <div class="rightmenu">
+          <div v-show="!token" class="rightmenu">
             <div class="login-zone">
               <div class="btns">
                 <a href="/becomePioneer" class="user button">成为开发者</a>
                 <a href="/Login" class="user button">登录</a>
                 <a href="/Register" class="user button">注册</a>
                 <a href="" class="kuang user button">发布项目</a>
+              </div>
+            </div>
+          </div>
+          <div v-show="token" class="rightmenu">
+            <div class="login-zone">
+              <div class="btns">
+                <a href="/user/joined" target="_self" class="top_button">
+                  我参与的项目
+                </a>
+              </div>
+              <a
+                id="notification-zone"
+                class="notify-zone"
+                @mouseover="showNoticef"
+                @mouseout="hiddenNotice"
+              >
+                <img src="../assets/folder-w.png" alt="" />
+              </a>
+              <div
+                @mouseover="showNoticef"
+                @mouseout="hiddenNotice"
+                id="notification-menu"
+                :class="showNotice ? 'menu-zone hidden' : 'menu-zone'"
+              >
+                <div class="menu-ul">
+                  <div class="menu-header">
+                    <span class="menu-title">通知</span>
+                    <a href="/user/notification" class="menu-button">
+                      查看全部》
+                    </a>
+                  </div>
+                  <div id="notification-list">
+                    <div class="notification-section read none">
+                      <div class="notification-content">无未读通知</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="user" @mouseover="showInfof" @mouseout="hiddenInfo">
+                <a href="/" class="ui avatar image">
+                  <img
+                    src="https://dn-coding-net-production-pp.codehub.cn/29402486-bf33-4cb4-9ea2-ab4bae89bee2.png"
+                    alt=""
+                  />
+                </a>
+                <i class="cursor">﹀</i>
+              </div>
+            </div>
+            <div
+              @mouseover="showInfof"
+              @mouseout="hiddenInfo"
+              id="user-info-menu"
+              :class="showInfo ? 'menu-zone hidden' : 'menu-zone'"
+              style="overflow: visible"
+            >
+              <div class="menu-ul">
+                <div class="menu-header">Hello,{{ username }}</div>
+                <div class="menu-gap"></div>
+                <div :class="hovered1?'blue menu-section userinfo':'menu-section userinfo'" @mouseover="blue1" @mouseout="white1">
+                  <a href="/user/info" class="menu-li" target="_self">
+                    <img :src="hovered1 ? userw : user" alt="" />
+                    个人中心
+                  </a>
+                </div>
+                <div class="menu-gap"></div>
+                <div :class="hovered2?'blue menu-section':'menu-section'" @mouseover="blue2" @mouseout="white2">
+                  <a
+                    href="/user/account"
+                    class="menu-li svg-mouse"
+                    target="_self"
+                  >
+                    <span class="svg-pack">
+                      <img :src="hovered2 ? shieldw : shield" alt="" />
+                    </span>
+                    <span>我的开发宝</span>
+                  </a>
+                </div>
+                <div class="menu-gap"></div>
+                <div :class="hovered3?'blue menu-section':'menu-section'" @mouseover="blue3" @mouseout="white3">
+                  <div class="menu-li">
+                    <a @click="signout" class="signout">
+                      <img :src="hovered3 ? outw : out" alt="" />
+                      退出登录
+                    </a>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -85,12 +171,7 @@
           <div class="bx-wrapper" style="max-width: 100%">
             <div
               class="bx-viewport"
-              style="
-                width: 100%;
-                overflow: hidden;
-                position: relative;
-                height: 574px;
-              "
+              style="width: 100%; overflow: hidden; position: relative"
             >
               <div id="banner" style="width: auto; position: relative">
                 <transition :name="isFirst ? 'two' : 'one'">
@@ -126,7 +207,7 @@
                             <br />
                             自助验收,轻松交付
                           </div>
-                          <a class="start-button" href="/">了解详情</a>
+                          <a class="start-button" href="/help">了解详情</a>
                         </div>
                         <div class="spacer"></div>
                         <div class="sub-motto-container">
@@ -288,7 +369,12 @@
           </div>
           <div class="bx-wrapper" style="max-width: 980px">
             <div class="bx-viewport">
-              <div class="codersay-list-grid">
+              <div
+                id="banner"
+                :class="
+                  page ? 'codersay-list-grid' : 'codersay-list-grid second-list'
+                "
+              >
                 <div class="codersay-list-tab bx-clone">
                   <div class="codersay-list-tab-body">
                     <a>
@@ -455,13 +541,21 @@
             </div>
             <div class="bx-controls bx-has-pager">
               <div class="bx-pager bx-default-pager">
-                <div class="bx-pager-item">
-                  <a href="" class="bx-pager-link active" data-slide-index="0"
+                <div class="bx-pager-item" @click="turn($event)">
+                  <a
+                    href="##"
+                    :class="page ? 'bx-pager-link active' : 'bx-pager-link'"
+                    data-slide="0"
                     >1</a
                   >
                 </div>
-                <div class="bx-pager-item">
-                  <a href="" class="bx-pager-link" data-slide-index="1">2</a>
+                <div class="bx-pager-item" @click="turn($event)">
+                  <a
+                    href="##"
+                    :class="page ? 'bx-pager-link' : 'bx-pager-link active'"
+                    data-slide="1"
+                    >2</a
+                  >
                 </div>
               </div>
             </div>
@@ -508,6 +602,7 @@
   </div>
 </template>
 <script>
+import { mapState } from "vuex";
 import bottomFooter from "../components/BottomFooter.vue";
 export default {
   components: {
@@ -522,6 +617,21 @@ export default {
       isFirst: true,
       enter: false,
       timer: "",
+      page: true,
+      // 是否登录（临时）
+      token: true,
+      showInfo: true,
+      showNotice: true,
+      username: "柑橘栀子花",
+      hovered1: false,
+      hovered2: false,
+      hovered3: false,
+      user: require("../assets/user.png"),
+      userw: require("../assets/user-w.png"),
+      shield: require("../assets/shield.png"),
+      shieldw: require("../assets/shield-w.png"),
+      out: require("../assets/out.png"),
+      outw: require("../assets/out-w.png"),
     };
   },
   methods: {
@@ -530,6 +640,37 @@ export default {
     },
     hidden() {
       this.enter = false;
+    },
+    showNoticef() {
+      this.showNotice = false;
+    },
+    hiddenNotice() {
+      this.showNotice = true;
+    },
+    showInfof() {
+      this.showInfo = false;
+    },
+    hiddenInfo() {
+      this.showInfo = true;
+    },
+    // 头像下列表鼠标移入变色
+    blue1(){
+      this.hovered1=true
+    },
+    blue2(){
+      this.hovered2=true
+    },
+    blue3(){
+      this.hovered3=true
+    },
+    white1(){
+      this.hovered1=false
+    },
+    white2(){
+      this.hovered2=false
+    },
+    white3(){
+      this.hovered3=false
     },
     handleScroll() {
       var scrollTop =
@@ -560,6 +701,17 @@ export default {
       }
       this.isFirst = !this.isFirst;
     },
+    // fanye(){
+    //   this.page=!page;
+    // },
+    // 点击“看看他们怎么说”下面的点进行翻页
+    turn(e) {
+      if (e.target.dataset.slide == 0) {
+        this.page = true;
+      } else {
+        this.page = false;
+      }
+    },
   },
   mounted() {
     window.addEventListener("scroll", this.handleScroll);
@@ -571,9 +723,16 @@ export default {
   destroyed() {
     window.removeEventListener("scroll", this.handleScroll);
   },
+  computed: {
+    ...mapState(["token"]),
+  },
 };
 </script>
 <style lang="scss" scoped>
+::after,
+::before {
+  box-sizing: border-box;
+}
 .one-enter-active,
 .one-leave-active,
 .two-enter-active,
@@ -633,7 +792,7 @@ export default {
   margin-top: 0;
   .login-zone {
     line-height: 70px;
-    text-align: center;
+    // text-align: center;
     float: left;
     .btns {
       display: inline-block;
@@ -661,8 +820,127 @@ export default {
         background-image: none;
         vertical-align: middle;
       }
+      .top_button {
+        color: #fff;
+        font-size: 18px;
+        margin-right: 15px;
+      }
+    }
+    .notify-zone {
+      color: #fff;
+      position: relative;
+      float: none;
+      padding: 0 0 25px 15px;
+      text-align: center;
+      cursor: pointer;
+      line-height: 64px;
+      img {
+        width: 16px;
+        height: 16px;
+      }
+    }
+
+    #notification-menu {
+      right: 96px;
+      top: 0;
+      margin-right: 0;
+      width: 300px;
+      max-height: 440px;
+      line-height: 18px;
+    }
+    .user {
+      display: inline-block;
+      padding: 0 14px;
+      .avatar {
+        display: inline-block;
+        position: relative;
+        color: #323a45;
+        img {
+          width: 40px;
+          height: 40px;
+          margin-right: 0.5em;
+          vertical-align: middle;
+          border-radius: 20px;
+        }
+      }
     }
   }
+  .menu-zone {
+    border-radius: 4px;
+    position: absolute;
+    right: 0;
+    background: #fff;
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+    z-index: 1;
+    margin-top: 64px;
+    margin-right: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    width: 180px;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+    .menu-ul {
+      padding-bottom: 10px;
+      .menu-header {
+        padding: 15px 10px 10px 20px;
+        color: #a9a9a9;
+        line-height: 22px;
+        .menu-title {
+          font-size: 12px;
+          color: #333;
+        }
+        .menu-button {
+          font-size: 12px;
+          color: #848484;
+          float: right;
+          cursor: pointer;
+        }
+      }
+      #notification-list {
+        .notification-section,
+        .read {
+          padding: 10px;
+          text-align: center;
+          color: #a9a9a9;
+        }
+        .notification-section {
+          font-size: 12px;
+          color: #333;
+          position: relative;
+          border-top: 1px solid #f7f6f2;
+          padding: 10px 15px 10px 28px;
+        }
+      }
+    }
+    .menu-gap {
+      height: 1px;
+      background-color: #f7f6f2;
+      margin: 0 10px;
+    }
+    .menu-section {
+      padding: 6px 0;
+      color: #000;
+      .menu-li {
+        cursor: pointer;
+        padding: 7px 20px;
+        display: block;
+        line-height: 22px;
+        color: inherit;
+        img{
+          margin-right: 10px;
+          width: 14px;
+          height: 14px;
+        }
+      }
+    }
+  }
+}
+.blue{
+  background: #4289db !important;
+  color:#fff !important;
+}
+.hidden {
+  display: none !important;
 }
 header {
   display: block;
@@ -676,35 +954,21 @@ header {
   width: 100px;
   text-align: center;
 }
-.index-top {
-  position: relative;
-  background: 0 0;
-  border: 0;
-  max-height: 640px;
-  height: calc(100vh - 115px);
-  min-height: 41rem;
-  padding-top: 6.5rem;
-  padding-bottom: 39px;
+.motto-container {
+  width: 85%;
+  max-width: 900px;
   display: -webkit-box;
   display: -webkit-flex;
   display: flex;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: horizontal;
   -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-  flex-direction: column;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  justify-content: center;
+  -webkit-flex-direction: row;
+  flex-direction: row;
   -webkit-box-align: center;
   -webkit-align-items: center;
   align-items: center;
-  z-index: 1;
-}
-.motto-container {
-  display: flex;
-  width: 85%;
-  max-width: 900px;
-  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
   justify-content: center;
 }
 .top-motto {
@@ -840,10 +1104,15 @@ header {
       overflow: hidden;
       position: relative;
       height: 350px;
+      .second-list {
+        transform: translate3d(-1998px, 0px, 0px) !important;
+      }
       .codersay-list-grid {
         width: 6215%;
-        transition-duration: 0s;
+        transition-duration: 0.5s;
+        // 控制底部切换
         transform: translate3d(-999px, 0px, 0px);
+        // transform: translate3d(-1998px, 0px, 0px);
         margin: 0 auto;
         .codersay-list-tab {
           float: left;
@@ -957,11 +1226,8 @@ header {
     position: relative;
     z-index: 10000;
     .bx-wrapper {
-      box-shadow: none;
-      border: none;
-      background: 0 0;
-      margin: 0 auto;
       position: relative;
+      margin: 0 auto 60px;
       padding: 0;
       touch-action: pan-y;
       #banner {
@@ -1004,7 +1270,7 @@ header {
           z-index: 1;
           .top-motto-container {
             width: 100%;
-            z-index: -2;
+            z-index: 999;
             .top-motto {
               text-align: center;
               font-size: 3rem;
@@ -1285,6 +1551,9 @@ p {
       }
     }
   }
+}
+a {
+  text-decoration: none;
 }
 li,
 ul {

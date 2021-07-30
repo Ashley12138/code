@@ -41,12 +41,16 @@
                       name="account"
                       class="input block margin"
                       placeholder="手机号/用户名/电子邮箱"
+                      required
+                      v-model="account"
                     />
                     <input
                       type="password"
                       name="password"
                       class="input block margin"
                       placeholder="请输入密码"
+                      required
+                      v-model="password"
                     />
                     <div class="label block">
                       <label for="" class="checkbox ant-checkbox-checked">
@@ -65,7 +69,7 @@
                         <div class="label inline float-right">找回密码</div>
                       </a>
                     </div>
-                    <button class="button1 block">登录</button>
+                    <button class="button1 block" @click="login">登录</button>
                     <div class="wechat-tip" @click="change">
                       <img
                         src="../assets/微信.png"
@@ -91,11 +95,21 @@ export default {
   data() {
     return {
       qrcode: false,
+      account:'',
+      password:''
     };
   },
   methods: {
     change() {
       this.qrcode = !this.qrcode;
+    },
+    login() {
+      if (this.account && this.password) {
+        this.$router.go(-1);
+        this.$store.commit("setToken", 1);
+      } else {
+        alert("请填写正确并同意注册协议后点击登录");
+      }
     },
   },
 };
@@ -274,27 +288,27 @@ input {
   line-height: inherit;
   color: inherit;
 }
-.button1:hover{
-    background: #3a79c2;
+.button1:hover {
+  background: #3a79c2;
 }
-.ghost:hover{
-    background: #3a79c2 !important;
-    color: white !important;
+.ghost:hover {
+  background: #3a79c2 !important;
+  color: white !important;
 }
-.button1{
-    margin-top: 1rem;
-    background: #4289dc;
-    display: block;
-    width: 100%;
-    border: 1px solid #4289dc;
-    color: #fff;
-    outline: none;
-    border-radius: 4px;
-    font-size: 1rem;
-    line-height: 1.5rem;
-    padding: 0.6rem 1rem;
-    box-sizing: border-box;
-    text-align: center;
-    cursor: pointer;
+.button1 {
+  margin-top: 1rem;
+  background: #4289dc;
+  display: block;
+  width: 100%;
+  border: 1px solid #4289dc;
+  color: #fff;
+  outline: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  padding: 0.6rem 1rem;
+  box-sizing: border-box;
+  text-align: center;
+  cursor: pointer;
 }
 </style>

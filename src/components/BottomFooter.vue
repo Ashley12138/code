@@ -7,7 +7,7 @@
             <p class="footer-list-menu-head">关于汉迅</p>
             <ul class="footer-list-menu">
               <li><a href="/about">汉迅介绍</a></li>
-              <li><a href="/cases">汉迅案例</a></li>
+              <li><a href="/case">汉迅案例</a></li>
               <li><a href="/">内容中心</a></li>
             </ul>
           </div>

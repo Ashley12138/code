@@ -259,9 +259,9 @@
           <div class="section-container clearfix">
             <h1>码士排行榜</h1>
             <div class="types">
-              <a href="#income" class="type">收入榜</a>
-              <a href="#evalution" class="type">好评榜</a>
-              <a href="#diligent" class="type">勤奋榜</a>
+              <a href="#income" :class="income?'type active':'type'" data-index="0" @click="changeTab($event)">收入榜</a>
+              <a href="#evalution" :class="evalution?'type active':'type'" data-index="1" @click="changeTab($event)">好评榜</a>
+              <a href="#diligent" :class="diligent?'type active':'type'" data-index="2" @click="changeTab($event)">勤奋榜</a>
             </div>
             <ul
               id="income"
@@ -373,11 +373,11 @@
             </div>
           </div>
         </section>
-        <section id="technique">
+        <!-- <section id="technique">
           <div class="section-container border-bottom">
             <h1>开发者擅长技术分析</h1>
             <h3>（单位：人）</h3>
-            <!-- <div class="chart-container">
+            <div class="chart-container">
               <div
                 id="technique-chart"
                 style="
@@ -402,9 +402,9 @@
                   <div id="charts1"></div>
                 </div>
               </div> 
-            </div>-->
+            </div>
           </div>
-        </section>
+        </section> -->
         <section id="type">
           <div class="section-container">
             <h1>项目类型资源分布</h1>
@@ -687,6 +687,9 @@ export default {
           type: "游戏开发",
         },
       ],
+      income:true,
+      evalution:false,
+      diligent:false
     };
   },
   methods: {
@@ -697,6 +700,23 @@ export default {
       this.list = false;
     },
     drawLine() {},
+    // 点击不同榜单进行切换
+    changeTab(e){
+      // console.log(e.target.dataset.index);
+      if (e.target.dataset.index==0) {
+        this.income=true;
+        this.evalution=false;
+        this.diligent=false;
+      }else if(e.target.dataset.index==1){
+        this.income=false;
+        this.evalution=true;
+        this.diligent=false;
+      }else{
+        this.income=false;
+        this.evalution=false;
+        this.diligent=true;
+      }
+    }
   },
   mounted() {
     // 在mounted中调用初始化函数
@@ -1179,7 +1199,7 @@ export default {
           justify-content: center;
           -webkit-box-direction: normal;
           .active {
-            color: #273444;
+            color: #273444 !important;
           }
           .type {
             font-size: 14px;

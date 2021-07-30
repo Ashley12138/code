@@ -20,7 +20,7 @@
                 placeholder="输入问题关键字，找到答案"
               />
               <svg
-                style="position: absolute; top: 0px; left: 10px"
+                style="position: absolute; top: 8px; left: 10px"
                 t="1621909625742"
                 class="icon"
                 viewBox="0 0 1024 1024"
@@ -46,6 +46,103 @@
           </form>
         </div>
       </header>
+      <section class="content">
+        <div class="wrap clearfix">
+          <div class="category-section-list">
+            <div class="category-section category">
+              <h2>
+                <a href="/">我是需求方</a>
+              </h2>
+              <ul>
+                <li class="section">
+                  <h3>
+                    <a href="/ListMenu">发布项目</a>
+                  </h3>
+                </li>
+                <li class="section">
+                  <h3>
+                    <a href="">招募开发</a>
+                  </h3>
+                </li>
+                <li class="section">
+                  <h3>
+                    <a href="">支付款项</a>
+                  </h3>
+                </li>
+                <li class="section">
+                  <h3>
+                    <a href="">开发项目</a>
+                  </h3>
+                </li>
+                <li class="section">
+                  <h3>
+                    <a href="">验收项目</a>
+                  </h3>
+                </li>
+              </ul>
+            </div>
+            <div class="category-section category">
+              <h2>
+                <a href="">我是开发者</a>
+              </h2>
+              <ul>
+                <li class="section">
+                  <h3>
+                    <a href="">注册认证</a>
+                  </h3>
+                </li>
+                <li class="section">
+                  <h3>
+                    <a href="">报名接单</a>
+                  </h3>
+                </li>
+                <li class="section">
+                  <h3>
+                    <a href="">开发项目</a>
+                  </h3>
+                </li>
+                <li class="section">
+                  <h3>
+                    <a href="">验收项目</a>
+                  </h3>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <section class="content-main fr">
+            <nav class="nav-tabs">
+              <ul>
+                <li :class="all ? 'active' : ''" @click="change">
+                  <div>全部</div>
+                </li>
+                <li :class="all ? '' : 'active'" @click="change">
+                  <div href="">最近</div>
+                </li>
+              </ul>
+            </nav>
+            <!-- 全部的列表 -->
+            <ul v-if="all" class="articles-list">
+              <li v-for="(item, index) in postsList" :key="index">
+                <div class="posts-item-content">
+                  <h3>
+                    <a :href="item.url">{{ item.content }}</a>
+                  </h3>
+                </div>
+              </li>
+            </ul>
+            <!-- 最近的列表 -->
+            <ul v-if="!all" class="articles-list">
+              <li v-for="(item, index) in recentList" :key="index">
+                <div class="posts-item-content">
+                  <h3>
+                    <a :href="item.url">{{ item.content }}</a>
+                  </h3>
+                </div>
+              </li>
+            </ul>
+          </section>
+        </div>
+      </section>
     </main>
   </div>
 </template>
@@ -54,6 +151,84 @@ import miniNav from "../components/MiniNav.vue";
 export default {
   components: {
     miniNav,
+  },
+  data() {
+    return {
+      all: true,
+      postsList: [
+        {
+          url:"/article",
+          content: "需求方指南",
+        },
+        {
+          url:"",
+          content: "如何注册成需求方？",
+        },
+        {
+          url:"",
+          content: "如何发布项目需求？",
+        },
+        {
+          url:"",
+          content: "需求方项目合作须知",
+        },
+        {
+          url:"",
+          content: "如何给项目估价？",
+        },
+        {
+          url:"",
+          content: "发布项目后如何取消？",
+        },
+        {
+          url:"",
+          content: "招募团队和个人项目有什么区别？",
+        },
+        {
+          url:"",
+          content: "需求方在码市做项目的步骤是什么？",
+        },
+      ],
+      recentList: [
+        {
+          url:"",
+          content: "需求方项目合作须知",
+        },
+        {
+          url:"",
+          content: "需求方在码市做项目的步骤是什么？",
+        },
+        {
+          url:"",
+          content: "如何发布项目需求？",
+        },
+        {
+          url:"",
+          content: "如何注册成需求方？",
+        },
+        {
+          url:"",
+          content: "招募团队和个人项目有什么区别？",
+        },
+        {
+          url:"",
+          content: "发布项目后如何取消？",
+        },
+        {
+          url:"",
+          content: "如何给项目估价？",
+        },
+        {
+          url:"",
+          content: "需求方指南",
+        },
+      ],
+    };
+  },
+  methods: {
+    change() {
+      this.all = !this.all;
+    },
   },
 };
 </script>
@@ -117,6 +292,10 @@ main {
           -moz-transition: all ease 0.4s;
           transition: all ease 0.4s;
         }
+        input:focus {
+          background: #fff;
+          color: #374051;
+        }
         input[type="submit"] {
           visibility: hidden;
           position: absolute;
@@ -124,6 +303,137 @@ main {
           height: 38px;
           width: 30px;
           display: inline-block;
+        }
+        input[type="submit"]:focus {
+          box-shadow: 0 0 3px rgba(33, 211, 118, 0.35);
+        }
+        label:focus{
+          color:#777
+        }
+      }
+    }
+  }
+  .content {
+    padding-top: 40px;
+    padding-bottom: 50px;
+    .wrap {
+      width: 1080px;
+      margin: 0 auto;
+      .category-section-list {
+        float: left;
+        width: 25%;
+        .category-section {
+          width: 100%;
+          padding: 0;
+          margin-bottom: 25px;
+          h2 {
+            padding-left: 8px;
+            border-left: 3px solid #21d376;
+            font-size: 16px;
+            margin-bottom: 15px;
+            border-bottom: none;
+            padding-bottom: 0;
+            font-weight: bold;
+            a {
+              color: #374051 !important;
+            }
+          }
+          .section {
+            background: #f7f7f6;
+            border-radius: 3px;
+            margin-bottom: 6px;
+            h3 {
+              position: relative;
+              a {
+                padding: 0 15px;
+                color: #307acd;
+                display: block;
+                height: 36px;
+                line-height: 36px;
+                font-size: 14px;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                border-radius: 3px;
+              }
+              a:hover {
+                color: #448ee1;
+              }
+            }
+          }
+        }
+      }
+      .fr {
+        float: right;
+      }
+      .content-main {
+        width: 70%;
+        .nav-tabs {
+          border-bottom: 1px solid #e2eaec;
+          padding: 0 5px;
+          margin-bottom: 10px;
+          ul {
+            float: left;
+            li {
+              float: left;
+              position: relative;
+              bottom: -1px;
+              margin-left: 6px;
+              div {
+                display: block;
+                border: 1px solid #e2eaec;
+                border-radius: 3px 3px 0 0;
+                padding: 0 15px;
+                height: 34px;
+                line-height: 34px;
+                font-size: 15px;
+                color: #428bca;
+                background: #f4f8f9;
+                -webkit-transition: all ease 0.4s;
+                transition: all ease 0.4s;
+              }
+            }
+            .active {
+              div {
+                color: #374051;
+                background: #fff;
+                border-bottom: 1px solid #fff !important;
+                text-decoration: none;
+              }
+            }
+          }
+        }
+        .nav-tabs::after {
+          display: block;
+          height: 0;
+          content: ".";
+          clear: both;
+          visibility: hidden;
+        }
+        .articles-list {
+          margin-bottom: 30px;
+          li {
+            position: relative;
+            border-bottom: 1px solid #e2eaec;
+            padding: 18px 100px 18px 0;
+            .posts-item-content {
+              padding-left: 10px;
+              h3 {
+                font-size: 16px;
+                font-weight: bold;
+                margin-bottom: 8px;
+                a {
+                  color: #3071cd;
+                }
+                a:hover {
+                  color: #448ee1;
+                }
+              }
+            }
+          }
+          li:hover {
+            background: #f9fcff;
+          }
         }
       }
     }
@@ -134,7 +444,11 @@ div,
 ul,
 li,
 form,
-label {
+label,
+section,
+h2,
+h3,
+nav {
   margin: 0;
   padding: 0;
   border: 0;
@@ -152,10 +466,19 @@ a {
   padding: 0;
   margin: 0;
 }
+a:hover {
+  text-decoration: underline;
+}
 label {
   cursor: pointer;
 }
 input[type="search"] {
   appearance: none;
+}
+section {
+  display: block;
+}
+ul {
+  list-style: none;
 }
 </style>

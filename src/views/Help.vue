@@ -3,7 +3,7 @@
     <header id="mart-header" class="transparent">
       <div id="top-menu">
         <div class="container clearfix">
-          <a href="" class="logo clearfix">
+          <a href="/" class="logo clearfix">
             <div
               style="
                 display: inline-block;

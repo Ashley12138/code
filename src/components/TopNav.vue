@@ -62,7 +62,7 @@
             </div>
           </li>
         </ul>
-        <div class="right-zone">
+        <div v-show="!token" class="right-zone">
           <div class="login-zone">
             <div class="btns">
               <a href="/becomePioneer" class="user button">成为开发者</a>
@@ -72,25 +72,154 @@
             </div>
           </div>
         </div>
+        <div v-show="token"></div>
+        <div class="right-zone">
+          <div
+            class="user-avatar"
+            @mouseover="showInfof"
+            @mouseout="hiddenInfo"
+          >
+            <a href="/" class="avatar-link">
+              <img
+                src="https://dn-coding-net-production-pp.codehub.cn/29402486-bf33-4cb4-9ea2-ab4bae89bee2.png"
+                alt=""
+              />
+            </a>
+            <i class="cursor">﹀</i>
+            <ul :class="showInfo ? 'avatar-menu hidden' : 'avatar-menu'">
+              <li>
+                <a>
+                  <span>Hello,</span>
+                  <span class="username">{{ username }}</span>
+                </a>
+              </li>
+              <li @mouseover="blue1" @mouseout="white1">
+                <a href="/user/info">
+                  <img :src="hovered1 ? userw : user" alt="" />
+                  个人中心
+                </a>
+              </li>
+              <li @mouseover="blue2" @mouseout="white2">
+                <a href="">
+                  <img :src="hovered2 ? shieldw : shield" alt="" />
+                  <span class="svg-span">我的开发宝</span>
+                </a>
+              </li>
+              <li @mouseover="blue3" @mouseout="white3">
+                <a @click="logout">
+                  <img :src="hovered3 ? outw : out" alt="" />
+                  退出登录
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div
+          class="notification-layout"
+          @mouseover="showNoticef"
+          @mouseout="hiddenNotice"
+        >
+          <a class="notification-zone">
+            <img src="../assets/folder.png" alt="" />
+          </a>
+          <div
+            :class="
+              showNotice
+                ? 'notification-menu menu-zone hidden'
+                : 'notification-menu menu-zone'
+            "
+          >
+            <div class="menu-ul">
+              <div class="menu-header">
+                <span class="menu-title">通知</span>
+                <a href="/user/notification" class="menu-button">
+                  查看全部》
+                </a>
+              </div>
+              <div id="notification-list"></div>
+              <div>
+                <div class="notification-section">
+                  <div class="notification-content">无未读通知</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="right-zone">
+          <div class="login-zone">
+            <div class="btns">
+              <a href="/user/project" class="user button">我参与的项目</a>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </header>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
   data() {
     return {
       list: false,
+      // 临时登录标记
+      token: true,
+      showInfo: true,
+      showNotice: true,
+      username: "柑橘栀子花",
+      hovered1: false,
+      hovered2: false,
+      hovered3: false,
+      user: require("../assets/user.png"),
+      userw: require("../assets/user-w.png"),
+      shield: require("../assets/shield.png"),
+      shieldw: require("../assets/shield-w.png"),
+      out: require("../assets/out.png"),
+      outw: require("../assets/out-w.png"),
     };
   },
-  methods:{
+  methods: {
     show() {
       this.list = true;
     },
     hidden() {
       this.list = false;
     },
-  }
+    showNoticef() {
+      this.showNotice = false;
+    },
+    hiddenNotice() {
+      this.showNotice = true;
+    },
+    showInfof() {
+      this.showInfo = false;
+    },
+    hiddenInfo() {
+      this.showInfo = true;
+    },
+    // 头像下列表鼠标移入变色
+    blue1() {
+      this.hovered1 = true;
+    },
+    blue2() {
+      this.hovered2 = true;
+    },
+    blue3() {
+      this.hovered3 = true;
+    },
+    white1() {
+      this.hovered1 = false;
+    },
+    white2() {
+      this.hovered2 = false;
+    },
+    white3() {
+      this.hovered3 = false;
+    },
+  },
+  computed: {
+    ...mapState(["token"]),
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -195,9 +324,147 @@ export default {
             border: 1px solid #333;
           }
         }
+        .user-avatar {
+          position: relative;
+          display: inline-block;
+          padding: 0 1rem;
+          line-height: 1em;
+          .avatar-link {
+            display: inline-block;
+            position: relative;
+            img {
+              width: 40px;
+              height: 40px;
+              margin-right: 0.5em;
+              vertical-align: middle;
+              border-radius: 20px;
+            }
+          }
+          a {
+            color: #108ee9;
+            background: transparent;
+            text-decoration: none;
+            outline: none;
+            cursor: pointer;
+            transition: color 0.3s ease;
+          }
+          .avatar-menu {
+            position: absolute;
+            right: 0;
+            top: 40px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            width: 180px;
+            z-index: 65;
+            background: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+            border-bottom-left-radius: 5px;
+            border-bottom-right-radius: 5px;
+            li {
+              padding: 5px 0;
+              border-bottom: 1px solid #f7f6f2;
+              a {
+                color: #333;
+                font-size: 1rem;
+                display: inline-block;
+                width: 100%;
+                line-height: 1.5rem;
+                padding: 7px 20px;
+                box-sizing: border-box;
+                text-decoration: none;
+                cursor: pointer;
+                span {
+                  vertical-align: text-bottom;
+                }
+                .username {
+                  max-width: 140px;
+                  display: inline-block;
+                  overflow: hidden;
+                  text-overflow: ellipsis;
+                }
+                img {
+                  width: 16px;
+                  height: 16px;
+                  margin-right: 10px;
+                }
+              }
+            }
+          }
+        }
+      }
+      .notification-layout {
+        position: relative;
+        .notification-zone {
+          position: relative;
+          float: right;
+          text-align: center;
+          width: 50px;
+          cursor: pointer;
+          height: 100%;
+          line-height: 64px;
+          color: #0a0a0a;
+          img {
+            width: 18px;
+            height: 18px;
+            vertical-align: middle;
+          }
+        }
+        .menu-zone {
+          position: absolute;
+          right: 0;
+          background: #fff;
+          border-bottom-left-radius: 4px;
+          border-bottom-right-radius: 4px;
+          z-index: 1;
+          margin-top: 64px;
+          margin-right: 10px;
+          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+          width: 180px;
+          transition: 0.3s;
+        }
+        .notification-menu {
+          right: 96px !important;
+          margin-right: 0 !important;
+          width: 300px !important;
+          max-height: 440px !important;
+          overflow: scroll !important;
+          .menu-ul {
+            padding-bottom: 10px;
+            .menu-header {
+              padding: 15px 10px 10px 20px;
+              color: #a9a9a9;
+              line-height: 22px;
+              .menu-title {
+                font-size: 12px;
+                color: #333;
+              }
+              .menu-button {
+                font-size: 12px;
+                color: #848484;
+                float: right;
+                cursor: pointer;
+              }
+            }
+            .notification-section {
+              font-size: 12px;
+              color: #333;
+              position: relative;
+              border-top: 1px solid #f7f6f2;
+              padding: 10px 15px 10px 28px;
+            }
+          }
+        }
+      }
+      .hidden {
+        display: none !important;
       }
     }
   }
+}
+.blue {
+  background: #4289db !important;
+  color: #fff !important;
 }
 header {
   display: block;

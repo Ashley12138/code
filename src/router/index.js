@@ -72,6 +72,72 @@ const routes = [
     path: '/ListMenu',
     name: 'ListMenu',
     component: () => import('../views/ListMenu.vue')
+  },
+  // 点击列表中的问题
+  {
+    path: '/Article',
+    name: 'Article',
+    component: () => import('../views/Article.vue')
+  },
+  // 汉迅案例
+  {
+    path: '/Case',
+    name: 'Case',
+    component: () => import('../views/Case.vue')
+  },
+  // 个人中心>>账户信息
+  {
+    path: '/User/info',
+    name: 'UserInfo',
+    component: () => import('../views/UserInfo.vue')
+  },
+  // 个人中心>>汉迅认证
+  {
+    path: '/User/identity',
+    name: 'UserIdentity',
+    component: () => import('../views/UserIdentity.vue')
+  },
+  // 个人中心>>技能展示
+  {
+    path: '/User/skills',
+    name: 'UserSkills',
+    component: () => import('../views/UserSkills.vue')
+  },
+  // 个人中心>>案例作品
+  {
+    path: '/User/workers',
+    name: 'UserWorkers',
+    component: () => import('../views/UserWorkers.vue')
+  },
+  // 个人中心>>汉迅测试
+  {
+    path: '/Quiz/Done',
+    name: 'QuizDone',
+    component: () => import('../views/QuizDone.vue')
+  },
+  // 个人中心>>保证金计划
+  {
+    path: '/User/deposit',
+    name: 'UserDeposit',
+    component: () => import('../views/UserDeposit.vue')
+  },
+  // 个人中心>>账户概览
+  {
+    path: '/Mpay/Account',
+    name: 'MpayAccount',
+    component: () => import('../views/MpayAccount.vue')
+  },
+  // 个人中心>>交易记录
+  {
+    path: '/Mpay/Records',
+    name: 'MpayRecords',
+    component: () => import('../views/MpayRecords.vue')
+  },
+  // 个人中心>>交易密码
+  {
+    path: '/Mpay/Password',
+    name: 'MpayPassword',
+    component: () => import('../views/MpayPassword.vue')
   }
 ]
 
